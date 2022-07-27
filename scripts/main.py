@@ -4,7 +4,7 @@ import subprocess
 # import os
 # import sys
 
-BASE_PATH = "/home/poop/frinks/tata-communications/python_backend"
+BASE_PATH = "/python_backend"
 
 try:
     first = subprocess.Popen(
