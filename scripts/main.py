@@ -1,8 +1,10 @@
 import json
 import time
 import subprocess
+# import os
+# import sys
 
-BASE_PATH = "/home/user/frinks/python_backend"
+BASE_PATH = "/home/poop/frinks/tata-communications/python_backend"
 
 try:
     first = subprocess.Popen(
@@ -13,6 +15,8 @@ try:
     fout, ferr = first.communicate()
     sout, serr = second.communicate()
     end = time.time()
+    # print(fout)
+    # print(sout)
     fres = json.loads(fout.decode('ascii'))
     sres = json.loads(sout.decode('ascii'))
     flen = len(fres)
@@ -26,6 +30,9 @@ try:
             sres[i] = value
     sres.insert(0, end-start)
     print(json.dumps(sres))
-except:
+except Exception as e:
+    # exc_type, exc_obj, exc_tb = sys.exc_info()
+    # fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+    # print(exc_type, fname, exc_tb.tb_lineno)
     print(json.dumps(''))
     pass

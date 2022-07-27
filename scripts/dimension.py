@@ -7,7 +7,7 @@ import os
 import time
 import json
 
-BASE_PATH = "/home/user/frinks/python_backend"
+BASE_PATH = "/home/poop/frinks/tata-communications/python_backend"
 
 # --------------------- MAIN FUNCTION --------------------
 
@@ -32,6 +32,7 @@ def detect_circle(img, rmin=15, rmax=30, adp_th=103, canny_th1=0, canny_th2=255,
     # 3 channel image to plot the output
 
     start_time = time.time()
+    # print(img, '-----------')
     img_c = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)  # cv2.imread(img_path,1)
 
     ad_th = cv2.adaptiveThreshold(
