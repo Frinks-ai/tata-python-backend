@@ -4,7 +4,7 @@ import subprocess
 # import os
 # import sys
 
-BASE_PATH = "/python_backend"
+BASE_PATH = "/tata-python-backend"
 
 try:
     first = subprocess.Popen(
