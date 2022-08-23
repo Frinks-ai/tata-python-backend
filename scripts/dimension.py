@@ -7,7 +7,7 @@ import os
 import time
 import json
 
-BASE_PATH = "/tata-python-backend"
+BASE_PATH = "/home/poop/frinks/tata-communications/python_backend"
 
 # --------------------- MAIN FUNCTION --------------------
 
@@ -225,7 +225,6 @@ def main():
     except:
         pass
         # print("WORNING!!! Location mismatch!! Please place the kit perfectly.")
-
     print(json.dumps(final_result, indent=2))
 
     # working with centre circle
