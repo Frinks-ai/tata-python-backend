@@ -7,7 +7,7 @@ import os
 import time
 import json
 
-BASE_PATH = "/home/poop/frinks/tata-communications/python_backend"
+BASE_PATH = "/tata-python-backend"
 
 # --------------------- MAIN FUNCTION --------------------
 
