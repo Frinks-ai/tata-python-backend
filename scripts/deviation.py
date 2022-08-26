@@ -9,7 +9,7 @@ import random
 from functools import cmp_to_key
 # loading parameter jason file
 
-BASE_PATH = "/home/poop/frinks/tata-communications/python_backend"
+BASE_PATH = "/tata-python-backend"
 
 data_jsonx = json.load(open(f"{BASE_PATH}/scripts/deviation_data.json",))[0]
 

@@ -72,4 +72,25 @@ if (!module.parent) {
   });
 }
 
+app.post('/update-file', (req, res) => {
+  try {
+    const { file, filename } = req.body;
+    fs.writeFile(`${constants.BASE_PATH}/scripts/${filename}`, file, 'base64', err => {
+      if (err) {
+        console.log(err);
+      }
+    });
+    res.status(200).json({
+      success: true,
+      status: 'File uploaded successfully'
+    });
+  } catch (err) {
+    console.log('update file --- post --- error', err);
+    res.status(500).json({
+      success: false,
+      status: 'File upload error please retry'
+    });
+  }
+});
+
 export default app;
