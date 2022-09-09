@@ -1,0 +1,22 @@
+dimension_detection---{'central_hub0': 111, 'rivet_inner0': 36, 'rivet_inner1': 38, 'rivet_inner2': 37, 'rivet_inner3': 36, 'stop_pin0': 26, 'stop_pin1': 27, 'stop_pin2': 27, 'stop_pin3': 26, 'stop_pin4': 25, 'stop_pin5': 25, 'rivet_top0': 34, 'rivet_top1': 35, 'rivet_top2': 34, 'rivet_top3': 34, 'rivet_top4': 31}
+
+
+
+
+relative_position---{'central_hub0': 0.0, 'torsion_spring0': 411.1471755953092, 'torsion_spring1': 408.0600446012817, 'torsion_spring2': 413.14646313383827, 'outer_clip0': 303.5341825890455, 'outer_clip1': 308.3642326859586, 'outer_clip2': 308.37963616296065, 'outer_clip3': 307.40892960354944, 'rivet_bottom0': 732.9503734905932, 'rivet_bottom1': 739.7582375343987, 'rivet_bottom2': 738.7898889400152, 'rivet_bottom3': 738.5137100961633, 'rivet_bottom4': 733.8605112690013, 'rivet_inner0': 482.2468247692254, 'rivet_inner1': 482.2551192055923, 'rivet_inner2': 485.79522434869614, 'rivet_inner3': 484.3727903175404, 'stop_pin0': 427.4037903435111, 'stop_pin1': 506.7247773693329, 'stop_pin2': 510.9060579010588, 'stop_pin3': 428.78549415762654, 'stop_pin4': 512.0009765615687, 'stop_pin5': 508.3827298404225, 'rivet_top0': 728.8271399996024, 'rivet_top1': 733.0948096938076, 'rivet_top2': 734.2458716261195, 'rivet_top3': 728.7063880603765, 'rivet_top4': 725.2489227844464, 'inner_clip0': 211.89266150577276, 'inner_clip1': 210.47683958098574, 'inner_clip2': 211.24866863485792, 'inner_clip3': 215.19526017085042}
+
+
+
+
+time----18.2751522064209
+
+
+
+dimension_detection---{'central_hub0': 108, 'rivet_inner0': 38, 'rivet_inner1': 37, 'rivet_inner2': 37, 'rivet_inner3': 36, 'stop_pin0': 26, 'stop_pin1': 24, 'stop_pin2': 25, 'stop_pin3': 26, 'stop_pin4': 26, 'stop_pin5': 26, 'rivet_top0': 36, 'rivet_top1': 34, 'rivet_top2': 33, 'rivet_top3': 34, 'rivet_top4': 32, 'rivet_top5': 32}
+
+
+
+relative_position---{'torsion_spring0': 400.6607043372235, 'torsion_spring1': 408.17643244067875, 'torsion_spring2': 406.31514862234707, 'torsion_spring3': 404.2091043012267, 'central_hub0': 0.0, 'rivet_bottom0': 733.1275468838966, 'rivet_bottom1': 738.0819737671419, 'rivet_bottom2': 740.0177362739355, 'rivet_bottom3': 736.7472429537826, 'rivet_bottom4': 733.2751870887219, 'rivet_bottom5': 731.7598649830421, 'outer_clip0': 304.5591075637043, 'outer_clip1': 311.6492419371496, 'outer_clip2': 308.50607773591753, 'outer_clip3': 303.19342011329996, 'rivet_inner0': 483.66930851564274, 'rivet_inner1': 485.7869903568847, 'rivet_inner2': 482.2468247692254, 'rivet_inner3': 480.13019067748695, 'stop_pin0': 427.68680129272167, 'stop_pin1': 509.5223253204907, 'stop_pin2': 510.0686228342222, 'stop_pin3': 429.3401914566117, 'stop_pin4': 506.7247773693329, 'stop_pin5': 507.5598486878173, 'rivet_top0': 729.6471750099496, 'rivet_top1': 732.0382503667414, 'rivet_top2': 731.3015793774823, 'rivet_top3': 728.972564641496, 'rivet_top4': 728.5615965723146, 'rivet_top5': 726.3642337009718, 'inner_clip0': 205.67024578193121, 'inner_clip1': 215.85701285804916, 'inner_clip2': 215.64090521049107, 'inner_clip3': 210.15767889848803}
+
+
+time----19.9031081199646
