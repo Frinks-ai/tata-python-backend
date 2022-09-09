@@ -13,10 +13,10 @@ def main(img_path):
     image,labels_dict=main_detection(img_path) ## for image
     # print(f'part_detection---{labels_dict}')
     position_dict,dimension_dict=dimensioning_parts(frame,labels_dict)
-    # print(f'position_detection---{position_dict}')
-    # print(f'dimension_detection---{dimension_dict}')
+    print(f'position_detection---{position_dict}')
+    print(f'dimension_detection---{dimension_dict}')
     relative_position=positioning_parts(frame,position_dict)
-    # print(f'relative_position---{relative_position}')
+    print(f'relative_position---{relative_position}')
     dimension_dev, position_dev,parts_absent=anomalies(dimension_dict, relative_position)
     # print(f'dimension_deviation---{dimension_dev}')
     # print(f'position_deviation---{position_dev}')
@@ -40,4 +40,6 @@ main('/home/rishabh/frinks/tata_comms/tata_demo/283.bmp')
 end=time.time()
 
 print(f"time----{end-start}")
+
+
 
