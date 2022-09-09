@@ -33,13 +33,13 @@ def position_deviation(position_dict):
             if key=='stop_pin0' or key=='stop_pin1' or key=='stop_pin2' or key=='stop_pin3' or key=='stop_pin4' or key=='stop_pin5' or key=='stop_pin6':
 
                 if value<480:
-                    position_dev[key]=(abs((428)-(position_dict[key])))/12
+                    position_dev[key]=(abs((440)-(position_dict[key])))/20
 
                 elif value>480:
-                    position_dev[key]=(abs((508)-(position_dict[key])))/12
+                    position_dev[key]=(abs((525)-(position_dict[key])))/20
 
             else:
-                position_dev[key]=(abs((ground_truth_position[key])-(position_dict[key])))/12
+                position_dev[key]=(abs((ground_truth_position[key])-(position_dict[key])))/20
 
         else:
             print(f"{key}--- has 0 dimension")

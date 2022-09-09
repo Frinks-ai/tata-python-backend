@@ -224,7 +224,7 @@ def pred_unet(model, image):
     return imask
 
 def main_springs(image):
-    model_dir = "/home/rishabh/frinks/tata_comms/tata_demo/u2netp.pth"  
+    model_dir = "/home/frinks1/u2netp.pth"  
     net = U2NETP(3,1) 
 
 

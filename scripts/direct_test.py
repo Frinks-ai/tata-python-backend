@@ -53,7 +53,7 @@ def main(img_path, model_path, device="cuda"):
     final = predict(model, img, device)
     return final
 if __name__ == "__main__":
-    checkpoint_path = "/home/rishabh/frinks/tata_comms/tata_demo/10_model.pth"
+    checkpoint_path = "/home/frinks1/10_model.pth"
     final = main("/home/amal/Frinks/molbio/DexiNed/data/download (19).png", checkpoint_path)
     while True:
         cv2.imshow("final", final)

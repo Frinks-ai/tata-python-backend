@@ -6,7 +6,7 @@ import torch
 import math
 from direct_test import load_model,predict
 
-weights='/home/rishabh/frinks/tata_comms/tata_demo/best.pt'
+weights='/home/frinks1/best.pt'
 
 
 ### -------------------------------------- function to run detection ---------------------------------------------------------
@@ -123,7 +123,7 @@ def main_detection(img_path):
 
     final_coords={}
 
-    model = torch.hub.load(f'/home/rishabh/frinks/tata_comms/tata_demo/yolov5', 'custom', source='local', path='/home/rishabh/frinks/tata_comms/tata_demo/best.pt', force_reload=True)   ### setting up confidence threshold
+    model = torch.hub.load(f'/home/frinks1/tata-python-backend/scripts/yolov5', 'custom', source='local', path='/home/frinks1/best.pt', force_reload=True)   ### setting up confidence threshold
     if img_path != None:
         print(f"[INFO] Working with image: {img_path}")
         frame = cv2.imread(img_path)
@@ -132,7 +132,7 @@ def main_detection(img_path):
         frame = cv2.cvtColor(frame,cv2.COLOR_RGB2BGR)
         frame,labels_dict = plot_boxes(results,frame)
         bboxcoords=check_slopes(labels_dict)
-        cv2.imwrite("/home/rishabh/frinks/tata_comms/tata_demo/final.jpg",frame)
+        cv2.imwrite("/home/frinks1/molebio-backend/result/images/automobile_result.bmp",frame)
         for key,values in bboxcoords.items():
             for i,coord in enumerate(values):
                 if key not in final_coords.keys():    
