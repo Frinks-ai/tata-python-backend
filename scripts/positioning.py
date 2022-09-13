@@ -8,18 +8,24 @@ relative_position = {}
 
 def positioning_parts(frame, positioning):
 
-    reff_coord = positioning['central_hub0']
+    try:
+        if 'central_hub0' in positioning.keys():
 
-    d1 = reff_coord[0]
-    d2 = reff_coord[1]
+            reff_coord = positioning['central_hub0']
 
-    for key, values in positioning.items():
+            d1 = reff_coord[0]
+            d2 = reff_coord[1]
 
-        distance = dist.euclidean((d1, d2), (values[0], values[1]))
+            for key, values in positioning.items():
 
-        relative_position[key] = distance
+                distance = dist.euclidean((d1, d2), (values[0], values[1]))
 
-    return relative_position
+                relative_position[key] = distance
+
+            return relative_position
+    
+    except:
+        print('refference coordinate of central hub is absent')
 
 
 # print(relative_position)

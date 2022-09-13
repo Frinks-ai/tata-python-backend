@@ -44,14 +44,21 @@ def main():
         # print(f'dimension_deviation---{dimension_dev}')
         # print(f'position_deviation---{position_dev}')
         # print(f'parts absent----{parts_absent}')
-        for key in parts_absent:
-            final_result[key] = [0]
+        try:
+            if len(position_dict)>8:
+                for key in parts_absent:
+                    final_result[key]=[0]
+                    
+                for key in position_dev.keys():
+                    if key in dimension_dict.keys():
+                        final_result[key] =[1,position_dev[key],dimension_dict[key]]
+                    else:
+                        final_result[key]=[1,position_dev[key]]
+                
+                print(f'final_result-----{final_result}')
 
-        for key in position_dev.keys():
-            if key in dimension_dict.keys():
-                final_result[key] = [1, position_dev[key], dimension_dict[key]]
-            else:
-                final_result[key] = [1, position_dev[key]]
+        except:
+            print('part placed is not correct')
 
         end = time.time()
         final_result["total_time"] = end-start

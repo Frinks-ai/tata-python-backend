@@ -9,49 +9,61 @@ def dimension_deviation(dimension_dict):
 
     dimension_dev={}
 
-    for key,value in dimension_dict.items():
+    try:
+        if len(dimension_dict)>3:
 
-        if key in ground_truth_dimension.keys():
-            
-            dimension_dev[key]=(abs((ground_truth_dimension[key])-(dimension_dict[key])))/12
+            for key,value in dimension_dict.items():
 
-        else:
-            print(f"{key}--- not present")
+                if key in ground_truth_dimension.keys():
+                    
+                    dimension_dev[key]=(abs((ground_truth_dimension[key])-(dimension_dict[key])))/12
 
-    return dimension_dev
+                else:
+                    print(f"{key}--- not present")
+
+            return dimension_dev
+    except:
+        print('not having enough dimensions')
 
 
 def position_deviation(position_dict):
 
     position_dev={}
+    try:
+        if len(position_dict)>8:
+            for key,value in position_dict.items():
 
+                if key in ground_truth_position.keys():
 
-    for key,value in position_dict.items():
+                    if key=='stop_pin0' or key=='stop_pin1' or key=='stop_pin2' or key=='stop_pin3' or key=='stop_pin4' or key=='stop_pin5' or key=='stop_pin6':
 
-        if key in ground_truth_position.keys():
+                        if value<480:
+                            position_dev[key]=(abs((428)-(position_dict[key])))/12
 
-            if key=='stop_pin0' or key=='stop_pin1' or key=='stop_pin2' or key=='stop_pin3' or key=='stop_pin4' or key=='stop_pin5' or key=='stop_pin6':
+                        elif value>480:
+                            position_dev[key]=(abs((508)-(position_dict[key])))/12
 
-                if value<480:
-                    position_dev[key]=(abs((428)-(position_dict[key])))/12
+                    else:
+                        position_dev[key]=(abs((ground_truth_position[key])-(position_dict[key])))/12
 
-                elif value>480:
-                    position_dev[key]=(abs((508)-(position_dict[key])))/12
-
-            else:
-                position_dev[key]=(abs((ground_truth_position[key])-(position_dict[key])))/12
-
-        else:
-            print(f"{key}--- has 0 dimension")
-            
-    return position_dev
+                else:
+                    print(f"{key}--- has 0 dimension")
+                    
+            return position_dev
+    except:
+        print('Not having enough positions')
 
 
 def part_absent(position_dict):
 
-    parts_absent=[k for k,v in ground_truth_position.items() if k not in position_dict]
+    try:
+        if len(position_dict)>8:
+            parts_absent=[k for k,v in ground_truth_position.items() if k not in position_dict]
 
-    return parts_absent
+            return parts_absent
+    
+    except:
+        print("not having enough parts")
 
 
 
