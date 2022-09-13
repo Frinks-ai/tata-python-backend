@@ -2,7 +2,7 @@ import cv2
 import torch
 import math
 
-weights = '/home/poop/best.pt'
+weights = '/workspace/best.pt'
 
 
 # -------------------------------------- function to run detection ---------------------------------------------------------
@@ -122,7 +122,7 @@ def main_detection(img_path):
     final_coords = {}
 
     model = torch.hub.load(f'./yolov5', 'custom', source='local',
-                           path='/home/poop/best.pt', force_reload=True)  # setting up confidence threshold
+                           path='/workspace/best.pt', force_reload=True)  # setting up confidence threshold
     if img_path != None:
         print(f"[INFO] Working with image: {img_path}")
         frame = cv2.imread(img_path)
@@ -131,7 +131,7 @@ def main_detection(img_path):
         frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
         frame, labels_dict = plot_boxes(results, frame)
         bboxcoords = check_slopes(labels_dict)
-        cv2.imwrite("/home/poop/automobile_result.bmp", frame)
+        cv2.imwrite("/workspace/automobile_result.bmp", frame)
         for key, values in bboxcoords.items():
             for i, coord in enumerate(values):
                 if key not in final_coords.keys():

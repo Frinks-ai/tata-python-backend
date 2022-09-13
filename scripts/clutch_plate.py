@@ -20,7 +20,7 @@ def on_message():
     GLOBAL_SWITCH[0] = True
 
 
-IMAGE_PATH = '/home/poop/automobile.bmp'
+IMAGE_PATH = '/workspace/automobile.bmp'
 GLOBAL_SWITCH = [True]
 
 

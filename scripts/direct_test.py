@@ -47,21 +47,3 @@ def predict(model, image, device):
     fuse = cv2.resize(fuse[0, 0], (img_shape[1], img_shape[0]))
     fuse = fuse.astype(np.uint8)
     return fuse
-
-
-# def main(img_path, model_path, device="cuda"):
-#     img = cv2.imread(img_path, cv2.IMREAD_COLOR)
-#     model = load_model(model_path, device)
-#     final = predict(model, img, device)
-#     return final
-
-
-# if __name__ == "__main__":
-#     checkpoint_path = "/home/poop/10_model.pth"
-#     final = main(
-#         "/home/amal/Frinks/molbio/DexiNed/data/download (19).png", checkpoint_path)
-#     while True:
-#         cv2.imshow("final", final)
-#         k = cv2.waitKey(1)
-#         if k == ord(" "):
-#             break
