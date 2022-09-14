@@ -3,8 +3,10 @@ from spring_model import main_springs
 import numpy as np
 from direct_test import load_model, predict
 import torch
+import os
+from dotenv import load_dotenv
 
-
+load_dotenv()
 
 
 # bboxcoords={'torsion_spring': [[1206, 1274, 1563, 1518], [816, 847, 1043, 1219], [1633, 749, 1859, 1117], [1099, 456, 1476, 697]], 'outer_clip': [[1528, 1125, 1648, 1247], [1028, 727, 1149, 849], [1476, 673, 1589, 796], [1085, 1179, 1197, 1299]], 'central_hub': [[1228, 871, 1457, 1100]], 'rivet_bottom': [[1076, 1668, 1161, 1759], [550, 1115, 638, 1206], [1812, 1492, 1897, 1581], [770, 384, 853, 474], [2033, 767, 2117, 857], [1518, 211, 1598, 301]], 'rivet_inner': [[975, 1322, 1058, 1410], [1675, 1262, 1760, 1352], [1618, 560, 1702, 649], [917, 620, 997, 706]], 'rivet_top': [[619, 604, 695, 684], [1930, 531, 2005, 608], [1970, 1284, 2043, 1363], [665, 1363, 744, 1443], [1343, 1700, 1415, 1774], [1254, 187, 1332, 267]], 'inner_clip': [[1520, 985, 1597, 1047], [1280, 1166, 1336, 1245], [1080, 920, 1160, 987], [1338, 736, 1394, 808]], 'stop_pin': [[1635, 1368, 1695, 1433], [980, 535, 1042, 604], [1096, 1343, 1158, 1406], [1721, 626, 1783, 692], [896, 1279, 957, 1344], [1521, 563, 1583, 626]]}
@@ -18,9 +20,11 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 # dimension_dict = {}
 
 
-model = load_model(checkpoint_path='/home/frinks1/10_model.pth', device=device)
+model = load_model(
+    checkpoint_path=f'{os.getenv("MODEL_BASE")}/10_model.pth', device=device)
 
 # frame=cv2.imread('/home/rishabh/frinks/tata_comms/tata_demo/2000.bmp')
+
 
 def dimensioning_parts(frame, bboxcoords):
 
@@ -29,7 +33,6 @@ def dimensioning_parts(frame, bboxcoords):
     dimension_dict = {}
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
-
 
     for old_key, old_value in bboxcoords.items():
 

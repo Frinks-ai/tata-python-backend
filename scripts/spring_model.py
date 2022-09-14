@@ -1,3 +1,4 @@
+from skimage import transform, color
 import cv2
 import numpy as np
 import torch
@@ -9,11 +10,12 @@ from PIL import Image as Img
 from torchvision import transforms
 from torch.utils.data import Dataset, DataLoader
 from torch.autograd import Variable
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # from __future__ import print_function, division
-import torch
-from skimage import transform, color
-import numpy as np
 
 THRESHOLD = 0.9
 
@@ -235,7 +237,7 @@ def pred_unet(model, image):
 
 
 def main_springs(image):
-    model_dir = "/home/frinks1/u2netp.pth"
+    model_dir = f'{os.getenv("MODEL_BASE")}/u2netp.pth'
     net = U2NETP(3, 1)
 
     if torch.cuda.is_available():
