@@ -13,8 +13,12 @@ import torch
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
+# position_dict = {}
 
-model = load_model(checkpoint_path='/workspace/10_model.pth', device=device)
+# dimension_dict = {}
+
+
+model = load_model(checkpoint_path='/home/frinks1/10_model.pth', device=device)
 
 # frame=cv2.imread('/home/rishabh/frinks/tata_comms/tata_demo/2000.bmp')
 

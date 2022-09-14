@@ -235,7 +235,7 @@ def pred_unet(model, image):
 
 
 def main_springs(image):
-    model_dir = "/workspace/u2netp.pth"
+    model_dir = "/home/frinks1/u2netp.pth"
     net = U2NETP(3, 1)
 
     if torch.cuda.is_available():

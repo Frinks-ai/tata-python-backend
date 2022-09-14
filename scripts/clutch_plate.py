@@ -16,12 +16,12 @@ except Exception as e:
 
 
 @sio.on('automobile-input')
-def on_message():
+def on_message(data):
     GLOBAL_SWITCH[0] = True
 
 
-IMAGE_PATH = '/workspace/automobile.bmp'
-GLOBAL_SWITCH = [True]
+IMAGE_PATH = '/home/frinks1/molebio-backend/result/images/automobile.bmp'
+GLOBAL_SWITCH = [False]
 
 
 def main():
@@ -32,9 +32,9 @@ def main():
         start = time.time()
         final_result = {}
         frame = cv2.imread(IMAGE_PATH)
-        image, labels_dict = main_detection(IMAGE_PATH)  # for image
-        # print(f'part_detection---{labels_dict}')
-        position_dict, dimension_dict = dimensioning_parts(frame, labels_dict)
+        image, final_coords = main_detection(IMAGE_PATH)  # for image
+        print(f'part_detection---{final_coords}')
+        position_dict, dimension_dict = dimensioning_parts(frame, final_coords)
         print(f'position_detection---{position_dict}')
         print(f'dimension_detection---{dimension_dict}')
         relative_position = positioning_parts(frame, position_dict)
