@@ -1,2 +1,7 @@
 node_modules
 yarn-error.log
+*.pt
+*.pth
+*.jpg
+*.png
+*.bmp
