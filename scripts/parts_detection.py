@@ -94,34 +94,31 @@ def plot_boxes(results, frame):
 def check_slopes(labels_dictionary):
 
     bboxcoords = {}
-    try:
-        if len(labels_dictionary) > 8:
-            for key, value in labels_dictionary.items():
-                if key == 'central_hub':
-                    val = ((value[0][0]+value[0][2])/2,
-                           (value[0][1]+value[0][3])/2)
 
-            slopes = {}
-            for key, value in labels_dictionary.items():
-                for coord in value:
-                    slope = math.degrees(math.atan2(
-                        val[1]-coord[1], val[0]-coord[0]))
-                    if len(slopes) == 0 or key not in slopes.keys():
-                        slopes[key] = []
-                        slopes[key].append(int(slope))
-                    else:
-                        slopes[key].append(int(slope))
+    for key, value in labels_dictionary.items():
+        if key == 'central_hub':
+            val = ((value[0][0]+value[0][2])/2,
+                   (value[0][1]+value[0][3])/2)
 
-                slopes[key] = [i[0]
-                               for i in sorted(enumerate(slopes[key]), key=lambda x:x[1])]
+    slopes = {}
+    for key, value in labels_dictionary.items():
+        for coord in value:
+            slope = math.degrees(math.atan2(
+                val[1]-coord[1], val[0]-coord[0]))
+            if len(slopes) == 0 or key not in slopes.keys():
+                slopes[key] = []
+                slopes[key].append(int(slope))
+            else:
+                slopes[key].append(int(slope))
 
-            for key, values in slopes.items():
-                bboxcoords[key] = [labels_dictionary[key][index]
-                                   for index in values]
+        slopes[key] = [i[0]
+                       for i in sorted(enumerate(slopes[key]), key=lambda x:x[1])]
 
-            return bboxcoords
-    except:
-        print('parts are not sufficient')
+    for key, values in slopes.items():
+        bboxcoords[key] = [labels_dictionary[key][index]
+                           for index in values]
+
+    return bboxcoords
 ###############################################################################################################
 
 
@@ -142,21 +139,15 @@ def main_detection(img_path):
         frame, labels_dict = plot_boxes(results, frame)
         bboxcoords = check_slopes(labels_dict)
         cv2.imwrite(f'{os.getenv("IMAGE_BASE")}/automobile_result.bmp', frame)
-        try:
-            if len(bboxcoords) > 8:
+        for key, values in bboxcoords.items():
+            for i, coord in enumerate(values):
+                if key not in final_coords.keys():
+                    final_coords[key] = {}
+                    final_coords[key][f'{key}{i}'] = coord
+                else:
+                    final_coords[key][f'{key}{i}'] = coord
 
-                for key, values in bboxcoords.items():
-                    for i, coord in enumerate(values):
-                        if key not in final_coords.keys():
-                            final_coords[key] = {}
-                            final_coords[key][f'{key}{i}'] = coord
-                        else:
-                            final_coords[key][f'{key}{i}'] = coord
-
-            return frame, final_coords
-
-        except:
-            print('parts not sufficient')
+        return frame, final_coords
 
 
 ##########################################################################################################
