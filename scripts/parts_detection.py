@@ -1,8 +1,12 @@
 import cv2
 import torch
 import math
+import os
+from dotenv import load_dotenv
 
-weights = '/home/frinks1/best.pt'
+load_dotenv()
+
+weights = f'{os.getenv("MODEL_BASE")}/best.pt'
 
 
 # -------------------------------------- function to run detection ---------------------------------------------------------
@@ -93,12 +97,14 @@ def check_slopes(labels_dictionary):
 
     for key, value in labels_dictionary.items():
         if key == 'central_hub':
-            val = ((value[0][0]+value[0][2])/2, (value[0][1]+value[0][3])/2)
+            val = ((value[0][0]+value[0][2])/2,
+                   (value[0][1]+value[0][3])/2)
 
     slopes = {}
     for key, value in labels_dictionary.items():
         for coord in value:
-            slope = math.degrees(math.atan2(val[1]-coord[1], val[0]-coord[0]))
+            slope = math.degrees(math.atan2(
+                val[1]-coord[1], val[0]-coord[0]))
             if len(slopes) == 0 or key not in slopes.keys():
                 slopes[key] = []
                 slopes[key].append(int(slope))
@@ -109,7 +115,8 @@ def check_slopes(labels_dictionary):
                        for i in sorted(enumerate(slopes[key]), key=lambda x:x[1])]
 
     for key, values in slopes.items():
-        bboxcoords[key] = [labels_dictionary[key][index] for index in values]
+        bboxcoords[key] = [labels_dictionary[key][index]
+                           for index in values]
 
     return bboxcoords
 ###############################################################################################################
@@ -122,7 +129,7 @@ def main_detection(img_path):
     final_coords = {}
 
     model = torch.hub.load(f'./yolov5', 'custom', source='local',
-                           path='/home/frinks1/best.pt', force_reload=True)  # setting up confidence threshold
+                           path=f'{os.getenv("MODEL_BASE")}/best.pt', force_reload=True)  # setting up confidence threshold
     if img_path != None:
         print(f"[INFO] Working with image: {img_path}")
         frame = cv2.imread(img_path)
@@ -131,7 +138,7 @@ def main_detection(img_path):
         frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
         frame, labels_dict = plot_boxes(results, frame)
         bboxcoords = check_slopes(labels_dict)
-        cv2.imwrite("/home/frinks1/molebio-backend/result/images/automobile_result.bmp", frame)
+        cv2.imwrite(f'{os.getenv("IMAGE_BASE")}/automobile_result.bmp', frame)
         for key, values in bboxcoords.items():
             for i, coord in enumerate(values):
                 if key not in final_coords.keys():
@@ -140,10 +147,7 @@ def main_detection(img_path):
                 else:
                     final_coords[key][f'{key}{i}'] = coord
 
-    return frame, final_coords
+        return frame, final_coords
 
 
 ##########################################################################################################
-
-
-# main_detection(img_path="/home/rishabh/frinks/tata_comms/tata_demo/2000.bmp") ## for image

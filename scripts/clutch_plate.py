@@ -5,22 +5,26 @@ from dimesioning_new import dimensioning_parts
 from positioning import positioning_parts
 import time
 import socketio
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
 sio = socketio.Client()
 
 try:
-    sio.connect("http://localhost:9000")
+    sio.connect(os.getenv("BASE_URL"))
 except Exception as e:
     print('Socket is unable to connect to the BASE_URL!!!')
 
 
-@sio.on('automobile-input')
+@sio.on('input')
 def on_message(data):
+    print("input called")
     GLOBAL_SWITCH[0] = True
 
 
-IMAGE_PATH = '/home/frinks1/molebio-backend/result/images/automobile.bmp'
+IMAGE_PATH = f'{os.getenv("IMAGE_BASE")}/upload.bmp'
 GLOBAL_SWITCH = [False]
 
 
@@ -45,16 +49,17 @@ def main():
         # print(f'position_deviation---{position_dev}')
         # print(f'parts absent----{parts_absent}')
         try:
-            if len(position_dict)>8:
+            if len(position_dict) > 8:
                 for key in parts_absent:
-                    final_result[key]=[0]
-                    
+                    final_result[key] = [0]
+
                 for key in position_dev.keys():
                     if key in dimension_dict.keys():
-                        final_result[key] =[1,position_dev[key],dimension_dict[key]]
+                        final_result[key] = [
+                            1, position_dev[key], dimension_dict[key]]
                     else:
-                        final_result[key]=[1,position_dev[key]]
-                
+                        final_result[key] = [1, position_dev[key]]
+
                 print(f'final_result-----{final_result}')
 
         except:
@@ -63,7 +68,7 @@ def main():
         end = time.time()
         final_result["total_time"] = end-start
 
-        sio.emit("automobile-output", final_result)
+        sio.emit("output", final_result)
         GLOBAL_SWITCH[0] = False
 ###################################################################
 
