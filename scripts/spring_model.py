@@ -236,19 +236,19 @@ def pred_unet(model, image):
     return imask
 
 
-def main_springs(image):
-    model_dir = f'{os.getenv("MODEL_BASE")}/u2netp.pth'
-    net = U2NETP(3, 1)
+# def main_springs(image):
+#     model_dir = f'{os.getenv("MODEL_BASE")}/u2netp.pth'
+#     net = U2NETP(3, 1)
 
-    if torch.cuda.is_available():
-        net.load_state_dict(torch.load(model_dir))
-        net.cuda()
-    else:
-        net.load_state_dict(torch.load(
-            model_dir, map_location=torch.device('cpu')))
+#     if torch.cuda.is_available():
+#         net.load_state_dict(torch.load(model_dir))
+#         net.cuda()
+#     else:
+#         net.load_state_dict(torch.load(
+#             model_dir, map_location=torch.device('cpu')))
 
-    net.eval()
+#     net.eval()
 
-    imask = pred_unet(net, image)
+#     imask = pred_unet(net, image)
 
-    return imask
+#     return imask

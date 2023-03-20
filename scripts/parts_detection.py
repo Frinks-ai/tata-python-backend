@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-weights = f'{os.getenv("MODEL_BASE")}/best.pt'
+# weights = f'{os.getenv("MODEL_BASE")}/best.pt'
 
 
 # -------------------------------------- function to run detection ---------------------------------------------------------
@@ -122,32 +122,31 @@ def check_slopes(labels_dictionary):
 ###############################################################################################################
 
 
-def main_detection(img_path):
+def main_detection(frame_new,model):
 
     print(f"[INFO] Loading model... ")
 
     final_coords = {}
 
-    model = torch.hub.load(f'./yolov5', 'custom', source='local',
-                           path=f'{os.getenv("MODEL_BASE")}/best.pt', force_reload=True)  # setting up confidence threshold
-    if img_path != None:
-        print(f"[INFO] Working with image: {img_path}")
-        frame = cv2.imread(img_path)
-        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        results = detectx(frame, model=model)  # DETECTION HAPPENING HERE
-        frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
-        frame, labels_dict = plot_boxes(results, frame)
-        bboxcoords = check_slopes(labels_dict)
-        cv2.imwrite(f'{os.getenv("IMAGE_BASE")}/automobile_result.bmp', frame)
-        for key, values in bboxcoords.items():
-            for i, coord in enumerate(values):
-                if key not in final_coords.keys():
-                    final_coords[key] = {}
-                    final_coords[key][f'{key}{i}'] = coord
-                else:
-                    final_coords[key][f'{key}{i}'] = coord
+    frame=frame_new.copy()
 
-        return frame, final_coords
+    # print(f"[INFO] Working with image: {img_path}")
+    # frame = cv2.imread(img_path)
+    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    results = detectx(frame, model=model)  # DETECTION HAPPENING HERE
+    frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+    frame, labels_dict = plot_boxes(results, frame)
+    bboxcoords = check_slopes(labels_dict)
+    cv2.imwrite(f'{os.getenv("IMAGE_BASE")}/automobile_result.bmp', frame)
+    for key, values in bboxcoords.items():
+        for i, coord in enumerate(values):
+            if key not in final_coords.keys():
+                final_coords[key] = {}
+                final_coords[key][f'{key}{i}'] = coord
+            else:
+                final_coords[key][f'{key}{i}'] = coord
+
+    return frame, final_coords
 
 
 ##########################################################################################################

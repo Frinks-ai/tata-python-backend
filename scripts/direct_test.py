@@ -14,16 +14,6 @@ def image_normalization(img, img_min=0, img_max=255,
     return img
 
 
-def load_model(checkpoint_path, device):
-    # Initialising mdoel
-    model = DexiNed().to(device)
-    # Loading model
-    model.load_state_dict(torch.load(checkpoint_path,
-                                     map_location=device))
-    model.eval()
-    return model
-
-
 # Prediction
 def predict(model, image, device):
     # getting image shape

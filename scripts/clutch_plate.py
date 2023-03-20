@@ -7,8 +7,61 @@ import time
 import socketio
 import os
 from dotenv import load_dotenv
+import torch
+from model import U2NETP
+from dexi_model import DexiNed
+
 
 load_dotenv()
+
+
+
+device = "cuda" if torch.cuda.is_available() else "cpu"
+
+###################################################
+######YOLO MODEL
+
+model = torch.hub.load(f'./yolov5', 'custom', source='local',path=f'{os.getenv("MODEL_BASE")}/best.pt', force_reload=True) 
+# model = torch.hub.load(f'./yolov5', 'custom', source='local',path='/home/rishabh/frinks/tata_comms/tata_demo/best.pt', force_reload=True) 
+
+model.eval()
+
+
+
+#####################################################
+######SPRING MODEL
+
+spring_dir = f'{os.getenv("MODEL_BASE")}/u2netp.pth'
+
+# spring_dir ='/home/rishabh/frinks/tata_comms/tata_demo/share_u2net/u2netp.pth'
+
+model_spring = U2NETP(3, 1)
+
+if torch.cuda.is_available():
+    model_spring.load_state_dict(torch.load(spring_dir))
+    model_spring.cuda()
+else:
+    model_spring.load_state_dict(torch.load(
+        spring_dir, map_location=torch.device('cpu')))
+
+model_spring.eval()
+
+####################################################
+####### DEXINED MODEL
+
+
+model_dim = DexiNed().to(device)
+
+model_dim.load_state_dict(torch.load(f'{os.getenv("MODEL_BASE")}/10_model.pth',
+                                     map_location=device))
+
+# model_dim.load_state_dict(torch.load('/home/rishabh/frinks/tata_comms/tata_demo/10_model.pth',
+#                                      map_location=device))
+
+model_dim.eval()
+
+
+####################################################
 
 sio = socketio.Client()
 
@@ -27,22 +80,32 @@ def on_message(data):
 IMAGE_PATH = f'{os.getenv("IMAGE_BASE")}/upload.bmp'
 GLOBAL_SWITCH = [False]
 
+#################################################################
+
 
 def main():
+
     print("Model loaded inside main")
     while True:
         if GLOBAL_SWITCH[0] == False:
             continue
+
+
         start = time.time()
         final_result = {}
+
         frame = cv2.imread(IMAGE_PATH)
-        image, final_coords = main_detection(IMAGE_PATH)  # for image
-        print(f'part_detection---{final_coords}')
-        position_dict, dimension_dict = dimensioning_parts(frame, final_coords)
-        print(f'position_detection---{position_dict}')
-        print(f'dimension_detection---{dimension_dict}')
+
+        # frame = cv2.imread(im_path)
+
+
+        image, final_coords = main_detection(frame,model)  # for image
+        # print(f'part_detection---{final_coords}')
+        position_dict, dimension_dict = dimensioning_parts(frame, final_coords,model_spring,model_dim)
+        # print(f'position_detection---{position_dict}')
+        # print(f'dimension_detection---{dimension_dict}')
         relative_position = positioning_parts(frame, position_dict)
-        print(f'relative_position---{relative_position}')
+        # print(f'relative_position---{relative_position}')
         dimension_dev, position_dev, parts_absent = anomalies(
             dimension_dict, relative_position)
         # print(f'dimension_deviation---{dimension_dev}')
@@ -68,9 +131,21 @@ def main():
         end = time.time()
         final_result["total_time"] = end-start
 
+
         sio.emit("output", final_result)
         GLOBAL_SWITCH[0] = False
+
+
 ###################################################################
 
-
 main()
+
+
+
+
+# image_dir='/home/rishabh/Downloads/tmp/tmp'
+
+# for img in sorted(os.listdir(image_dir)):
+#     print('image----------------------------------',img)
+#     image_path=image_dir+'/'+img
+#     main(image_path)
