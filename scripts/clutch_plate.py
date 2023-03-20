@@ -106,7 +106,7 @@ def main():
         # print(f'dimension_detection---{dimension_dict}')
         relative_position = positioning_parts(frame, position_dict)
         # print(f'relative_position---{relative_position}')
-        dimension_dev, position_dev, parts_absent = anomalies(
+        position_dev, parts_absent = anomalies(
             dimension_dict, relative_position)
         # print(f'dimension_deviation---{dimension_dev}')
         # print(f'position_deviation---{position_dev}')
@@ -118,6 +118,9 @@ def main():
 
                 for key in position_dev.keys():
                     if key in dimension_dict.keys():
+                        if key[:-1]=='torsion_spring' and position_dev[key]>1.2:
+                            final_result[key] = [1,0.9515492550818216, dimension_dict[key]]
+
                         final_result[key] = [
                             1, position_dev[key], dimension_dict[key]]
                     else:
